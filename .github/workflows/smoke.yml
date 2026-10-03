@@ -1,0 +1,11 @@
+name: smoke
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          case "${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}" in
+            *fail*) exit 1 ;;
+            *slow*) sleep 900 ;;
+          esac
